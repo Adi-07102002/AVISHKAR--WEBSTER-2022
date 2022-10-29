@@ -1,0 +1,78 @@
+body {
+    margin: none;
+    padding: none;
+    display: flex;
+    justify-content: center;
+    font-family: Montserrat, Arial, sans-serif;
+    font-size: 15px;
+    background-color: black;
+}
+
+form {
+    padding: 10px 0;
+    border-radius: 30px;
+    border: none;
+    background-color: #EEEEEE;
+    /*transform: translate(73.3%,4%);*/
+    margin: none;
+}
+
+input[type=text],
+input[type=password] {
+    width: 400px;
+    padding: 8px 8px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.icon {
+    font-size: 90px;
+    display: flex;
+    justify-content: center;
+    color: #000000;
+}
+
+button {
+    background-color: #CF0A0A;
+    color: white;
+    padding: 14px 0;
+    margin: 10px 0;
+    margin-left: 20px;
+    margin-right: 20px;
+    border: none;
+    cursor: grab;
+    width: 30%;
+    border-radius: 20px;
+}
+
+h1 {
+    text-align: center;
+
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.formcontainer {
+    text-align: center;
+    margin: 24px 50px 12px;
+}
+
+.container {
+    padding: 16px 0;
+    text-align: left;
+}
+
+#google{
+    padding-right: 10px;
+}
+h1{
+   font-size: 40px; 
+}
+
+label{
+    padding-top: 5px;
+}
