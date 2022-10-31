@@ -106,6 +106,11 @@ app.get("/logout",function(req,res){
     req.logout(function(){});
     res.redirect("/");
 });
+
+app.get("/monopoly_board",function(req,res){
+    res.render("monopoly_board");
+});
+
 app.post("/register",function(req,res){
     User.register({username:req.body.username},req.body.password,function(err,user){
         if(err){

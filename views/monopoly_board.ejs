@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>site</title>
+    <link rel="stylesheet" href="style_board.css">
+</head>
+
+<body>
+    
+    <nav>
+        <div class="nav-content">
+            <div class="logo">
+                <a href="#"><img class="lo" src="image/moguls-modified.png">
+                    <h6> MOGULS</h6>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">PLAYER 1
+
+                        <ul>
+                            <li>
+                                <a href="#">YASHASVI</a>
+
+                            </li>
+                            <li>
+                                <a href="#">ADITYA</a>
+                            </li>
+                            <li><a href="#">ASHUTOSH</a></li>
+                        </ul>
+
+                    </a>
+                </li>
+                <li><a href="#">PLAYER 2
+                        <ul>
+                            <li>
+                                <a href="#">YASHASVI</a>
+                            </li>
+                            <li>
+                                <a href="#">ADITYA</a>
+                            </li>
+                            <li><a href="#">ASHUTOSH</a></li>
+                    </a>
+                </li>
+            </ul>
+            <li><a href="#">PLAYER 3
+                    <ul>
+                        <li>
+                            <a href="#">YASHASVI</a>
+                        </li>
+                        <li>
+                            <a href="#">ADITYA</a>
+                        </li>
+                        <li><a href="#">ASHUTOSH</a></li>
+
+                </a>
+            </li>
+            </ul>
+            <li><a href="#">PLAYER 4
+                    <ul>
+                        <li>
+                            <a href="#">YASHASVI</a>
+                        </li>
+                        <li>
+                            <a href="#">ADITYA</a>
+                        </li>
+                        <li><a href="#">ASHUTOSH</a></li>
+                </a>
+            </li>
+            </ul>
+            </ul>
+
+        </div>
+    </nav>
+    <section class="home"></section>
+
+    <script>
+        let nav = document.querySelector("nav");
+        window.onscroll = function () {
+            if (document.documentElement.scrollTop > 20) {
+                nav.classList.add("sticky");
+            } else {
+                nav.classList.remove("sticky");
+            }
+        }
+    </script>
+
+        <table id="board">
+            <tr>
+                <td class="cell board-corner" id="cell20">
+                    
+                        <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                    
+                </td>
+                <td class="cell board-top" id="cell21">
+                    <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                </td>
+                <td class="cell board-top" id="cell22">
+                    <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                </td>
+                <td class="cell board-top" id="cell23">
+                    <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                </td>
+                <td class="cell board-top" id="cell24">
+                    <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                </td>
+                <td class="cell board-top" id="cell25">
+                    <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                </td>
+                <td class="cell board-corner" id="cell30">
+                    
+                        <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td class="cell board-left" id="cell19">
+                    <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                </td>
+                <td colspan="5" rowspan="5" class="board-center" ></td>
+                <td class="cell board-right" id="cell31">
+                    <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="cell board-left" id="cell18">
+                    <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                </td>
+                <td colspan="5" class="cell board-right" >
+                    <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="cell board-left" id="cell17">
+                    <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                </td>
+                <td colspan="5" class="cell board-right" >
+                    <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                </td>
+                
+            </tr>
+            <tr>
+                <td class="cell board-left" id="cell16">
+                    <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                </td>
+                <td colspan="5"  class="cell board-right" >
+                    <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                </td>
+                
+            </tr>
+            <tr>
+                <td class="cell board-left" id="cell11">
+                    <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                </td>
+                <td colspan="5" class="cell board-right" >
+                    <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                </td>
+              
+            </tr>
+            <tr>
+                <td class="cell board-corner" id="cell6">
+                    
+                        <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                    
+                </td>
+                <td class="cell board-bottom" id="cell5">
+                    <div class="player p1"></div>
+                    <div class="player p2"></div>
+                    <div class="player p3"></div>
+                    <div class="player p4"></div>
+                </td>
+                <td class="cell board-bottom" id="cell4">
+                    <div class="player p1"></div>
+                    <div class="player p2"></div>
+                    <div class="player p3"></div>
+                    <div class="player p4"></div>
+                </td>
+                <td class="cell board-bottom" id="cell3">
+                    <div class="player p1"></div>
+                    <div class="player p2"></div>
+                    <div class="player p3"></div>
+                    <div class="player p4"></div>
+                </td>
+                <td class="cell board-bottom" id="cell2">
+                    <div class="player p1"></div>
+                    <div class="player p2"></div>
+                    <div class="player p3"></div>
+                    <div class="player p4"></div>
+                </td>
+                
+                <td class="cell board-bottom" id="cell1">
+                    <div class="player p1"></div>
+                    <div class="player p2"></div>
+                    <div class="player p3"></div>
+                    <div class="player p4"></div>
+                </td>
+                <td class="cell board-corner" id="cell0">
+                    
+                        <div class="player p1"></div>
+                        <div class="player p2"></div>
+                        <div class="player p3"></div>
+                        <div class="player p4"></div>
+                </td>
+            </tr>
+        </table>
+        <!-- chatbox, livestream, gameplay-->
+</body>
+
+</html>

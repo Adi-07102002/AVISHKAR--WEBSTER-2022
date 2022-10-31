@@ -1,0 +1,237 @@
+
+body {
+    background-color: black;
+}
+
+body {
+    background-color: black;
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+}
+
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+ul li ul {
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+li {
+    position: relative;
+    padding: 0 10px;
+    height: 100%;
+    display: flex;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50%;
+    padding: 20px;
+    transition: all 0.4s ease;
+    transform: translate(100%,0%);
+}
+
+nav.sticky {
+    padding: 15px 20px;
+    background: #f440be;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav .nav-content {
+    height: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: left;
+    justify-content: space-between;
+}
+
+nav .logo a {
+    font-weight: 500;
+    font-size: 35px;
+    color: #0D7CFF;
+}
+
+nav.sticky .logo a {
+    color: rgb(163, 13, 13);
+}
+
+.nav-content .nav-links {
+    display: flex;
+}
+
+.nav-content .nav-links li {
+    list-style: none;
+    margin: 0 8px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: red;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px 4px;
+    transition: all 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: red;
+}
+
+nav.sticky .nav-links li a {
+    color: blueviolet;
+    transition: all 0.4s ease;
+}
+
+nav.sticky .nav-links li a:hover {
+    color: red;
+}
+
+.home {
+    height: 100vh;
+    width: 100%;
+    background: url("images/background.png") no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+h2 {
+    font-size: 30px;
+    margin-bottom: 6px;
+    color: #e43603;
+}
+
+.text {
+    text-align: justify;
+    padding: 40px 80px;
+    box-shadow: -5px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.lo {
+    height: 100px;
+    width: 100px;
+}
+
+ul li ul li {
+    display: none;
+    background-color: powderblue;
+}
+
+ul li:hover ul li {
+    display: block;
+    background-color: blueviolet;
+}
+
+/* board settings */
+
+.board-corner {
+    
+    width: 130px;
+    height: 130px;
+}
+
+.board-top {
+    width: 90px;
+    height: 130px;
+}
+
+.board-left {
+    width: 130px;
+    height: 90px;
+}
+
+.board-right {
+    width: 130px;
+    height: 90px;
+}
+.board-bottom {
+    width: 90px;
+    height: 130px;
+}
+
+#board {
+    border: 2px solid white;
+    border-spacing: 3px;
+    margin: 25px;
+    width: 97%;
+    display: block;
+    transform: translate(-105%,0%);
+}
+
+td {
+    border: solid 2px lightgrey;
+    font-size: 12px;
+    font-family: arial, sans-serif;
+    text-align: center;
+    position: relative;
+
+}
+
+/* player */
+.corner{
+    position:relative;
+    display: flex;
+    height:130px;
+    width:130px;
+}
+.player{
+    height:15px;
+    width:15px;
+    display: inline-block;
+    position:absolute;
+}
+
+.p1{
+    background-color: red;
+    top:0;
+    left:0;
+}
+
+.p2{
+    right:0;
+    top:0;
+    background-color: blue;
+}
+
+.p3{
+    bottom:0;
+    left:0;
+    background-color: rgb(7, 172, 7);
+}
+
+.p4{
+    bottom:0;
+    right:0;
+    background-color:yellow;
+}
+
