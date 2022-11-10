@@ -234,4 +234,11 @@ td {
     right:0;
     background-color:yellow;
 }
+.hidden{
+    background-color:black;
+}
+
+.cell{
+    color: white;
+}
 
