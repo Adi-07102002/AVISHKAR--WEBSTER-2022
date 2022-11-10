@@ -16,6 +16,7 @@ function move_piece(curr_pos){
     return new_pos;
 }
 
+
 function decision(player_name,ownership,money,price,place_name){
     if(place_name=="city" || place_name=="company"){
 
@@ -34,7 +35,21 @@ function decision(player_name,ownership,money,price,place_name){
                 return 1;//pays rent
             }
         }
-    }else{
+    }else if(place_name=="chance"){
+        let a=Math.floor(Math.random()*4)+5;
+        return a;
+    }
+    else if(place_name=="chest"){
+        let a=Math.floor(Math.random()*2)+10;
+        return a;
+    }
+    else if(place_name=="jail"){
+        return 12;
+    }
+    else if(place_name=="go_jail"){
+        return 13;
+    }
+    else{
         return 4;
     }
 }
