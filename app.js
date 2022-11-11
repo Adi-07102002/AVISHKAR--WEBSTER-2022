@@ -188,6 +188,10 @@ app.post("/online_multiplayer", function (req, res) {
   );
   res.redirect("/monopoly_board");
 });
+app.post("/offline_mode", function (req, res) {
+  game_type = 3;
+  res.redirect("/monopoly_board");
+});
 
 const go = "go",
   city = "city",
@@ -1422,7 +1426,7 @@ io.on("connection", function (socket) {
             let msg="GO TO JAIL"
             io.sockets.in("room-"+rooms[p].roomno+""+rooms[p].game_type).emit("display",msg);
           }
-          
+
           socket.on("buy", function (player_name) {
             console.log(socket.id + " tried to buy");
             let p = 0;
@@ -1471,7 +1475,506 @@ io.on("connection", function (socket) {
       });
     }
   }
-});
+
+
+
+
+
+
+
+
+
+  if(game_type==3){
+    socket.join("room-" + socket.id);
+      let rooms3=[{
+        roomno: socket.id,
+        clients: 4,
+        game_type: 3,
+        players: [
+          {
+            socket_id: 0,
+            name: 1,
+            curr_pos: 0,
+            money: 1000,
+            turn: 1,
+            in_game: 1,
+            room: -1,
+          },
+          {
+            socket_id: 0,
+            name: 2,
+            curr_pos: 0,
+            money: 1000,
+            turn: 0,
+            in_game: 1,
+            room: -1,
+          },
+          {
+            socket_id: 0,
+            name: 3,
+            curr_pos: 0,
+            money: 1000,
+            turn: 0,
+            in_game: 1,
+            room: -1,
+          },
+          {
+            socket_id: 0,
+            name: 4,
+            curr_pos: 0,
+            money: 1000,
+            turn: 0,
+            in_game: 1,
+            room: -1,
+          },
+        ],
+        places: [
+          {
+            cell: 0,
+            name: go,
+            price: 0,
+            ownership: 0,
+            cell_name: "Start",
+          },
+          {
+            cell: 1,
+            name: city,
+            price: 60,
+            ownership: 0,
+            cell_name: "MEDITERRANIAN AVE",
+          },
+          {
+            cell: 2,
+            name: chest,
+            price: 0,
+            ownership: 0,
+            cell_name: "COMMUNITY CHEST",
+          },
+          {
+            cell: 3,
+            name: city,
+            price: 100,
+            ownership: 0,
+            cell_name: "ORIENTAL AVE",
+          },
+          {
+            cell: 4,
+            name: chance,
+            price: 0,
+            ownership: 0,
+            cell_name: "CHANCE",
+          },
+          {
+            cell: 5,
+            name: city,
+            price: 120,
+            ownership: 0,
+            cell_name: "CONNECTICUT AVE",
+          },
+          {
+            cell: 6,
+            name: jail,
+            price: 0,
+            ownership: 0,
+            cell_name: "JAIL",
+          },
+          {
+            cell: 7,
+            name: city,
+            price: 140,
+            ownership: 0,
+            cell_name: "ST.CHARLES PLACE",
+          },
+          {
+            cell: 8,
+            name: company,
+            price: 150,
+            ownership: 0,
+            cell_name: "ELEC.COMP",
+          },
+          {
+            cell: 9,
+            name: city,
+            price: 160,
+            ownership: 0,
+            cell_name: "VIRGINIA AVE",
+          },
+          {
+            cell: 10,
+            name: chest,
+            price: 0,
+            ownership: 0,
+            cell_name: "COMMUNITY CHEST",
+          },
+          {
+            cell: 11,
+            name: city,
+            price: 200,
+            ownership: 0,
+            cell_name: "NY AVE",
+          },
+          {
+            cell: 12,
+            name: park,
+            price: 0,
+            ownership: 0,
+            cell_name: "FREE PARKING",
+          },
+          {
+            cell: 13,
+            name: city,
+            price: 220,
+            ownership: 0,
+            cell_name: "KENTUCY AVE",
+          },
+          {
+            cell: 14,
+            name: chance,
+            price: 0,
+            ownership: 0,
+            cell_name: "CHANCE",
+          },
+          {
+            cell: 15,
+            name: city,
+            price: 240,
+            ownership: 0,
+            cell_name: "ILLINOIS AVE",
+          },
+          {
+            cell: 16,
+            name: company,
+            price: 150,
+            ownership: 0,
+            cell_name: "WATER WORKS",
+          },
+          {
+            cell: 17,
+            name: city,
+            price: 280,
+            ownership: 0,
+            cell_name: "MARVIN GARDENS",
+          },
+          {
+            cell: 18,
+            name: go_jail,
+            price: 0,
+            ownership: 0,
+            cell_name: "GO TO JAIL",
+          },
+          {
+            cell: 19,
+            name: city,
+            price: 300,
+            ownership: 0,
+            cell_name: "PACIFIC AVE",
+          },
+          {
+            cell: 20,
+            name: chest,
+            price: 0,
+            ownership: 0,
+            cell_name: "COMMUNITY CHEST",
+          },
+          {
+            cell: 21,
+            name: city,
+            price: 320,
+            ownership: 0,
+            cell_name: "PENNSYLVANIA AVE",
+          },
+          {
+            cell: 22,
+            name: chance,
+            price: 0,
+            ownership: 0,
+            cell_name: "CHANCE",
+          },
+          {
+            cell: 23,
+            name: city,
+            price: 400,
+            ownership: 0,
+            cell_name: "BOARDWALK",
+          },
+        ],
+      }];
+
+        for(let co=0;co<4;co++){
+
+            rooms3[0].players[co].socket_id = socket.id;
+            rooms3[0].players[co].room =
+              rooms3[0].roomno;
+              console.log(
+                "PLAYER "+rooms3[0].players[co].name +
+                  " just connected in " +
+                  rooms3[0].players[co].room
+              );
+        }
+        console.log(rooms3[0].players);
+        socket.emit("begin_game");
+        socket.on("cell_clicked", function (k) {
+          socket.emit("cell_clicked", {
+            Name: rooms3[0].places[k].cell_name,
+            price: rooms3[0].places[k].price,
+            ownership: rooms3[0].places[k].ownership,
+          });
+        });
+
+        let q=0;
+        let gamma=0;
+        let p=0;
+        socket.on("move", function () {
+          let a = 0;
+          if (
+            rooms3[p].players[q].turn == 1 &&
+            rooms3[p].players[q].in_game == 1
+          ) {
+            if (rooms3[p].players[q].money < 0) {
+              rooms3[p].players[q].in_game = 0;
+              rooms3[p].players[q].turn = 0;
+              rooms3[p].players[(q + 1) % rooms3[p].clients].turn = 1;
+              io.to(socket.id).emit("end_game");
+            }
+  
+            io.sockets
+              .in("room-" + socket.id)
+              .emit("display", rooms3[p].players[q].name + " moved");
+            let b = move_piece(rooms3[p].players[q].curr_pos);
+            if (b >= 23) {
+              rooms3[p].players[q].money += 100;
+              io.sockets
+                .in("room-" + socket.id)
+                .emit("update_money", {
+                  player_name: rooms3[p].players[q].name,
+                  player_money: rooms3[p].players[q].money,
+                });
+            }
+            a = b % 23;
+            b = 0;
+            io.sockets
+              .in("room-" + socket.id)
+              .emit("update", {
+                name: rooms3[p].players[q].name,
+                curr_pos: rooms3[p].players[q].curr_pos,
+                new_pos: a,
+              });
+            rooms3[p].players[q].curr_pos = a;
+              gamma=q;
+            let choice = decision(
+              rooms3[p].players[q].name,
+              rooms3[p].places[a].ownership,
+              rooms3[p].players[q].money,
+              rooms3[p].places[a].price,
+              rooms3[p].places[a].name
+            );
+            console.log("CHOICE: " + choice+" q is "+q);
+  
+            if (choice == 1) {
+              //rent case
+              console.log(p + " " + q);
+              rooms3[p].players[q].money =
+                rooms3[p].players[q].money - rooms3[p].places[a].price * 0.1;
+              rooms3[p].players[rooms3[p].places[a].ownership - 1].money =
+                rooms3[p].players[rooms3[p].places[a].ownership - 1].money +
+                rooms3[p].places[a].price * 0.1;
+              console.log(rooms3[p].players);
+              io.sockets
+                .in("room-" + socket.id)
+                .emit("update_money", {
+                  player_name: rooms3[p].players[q].name,
+                  player_money: rooms3[p].players[q].money,
+                });
+              io.sockets
+                .in("room-" + socket.id)
+                .emit("update_money", {
+                  player_name:
+                    rooms3[p].players[rooms3[p].places[a].ownership - 1].name,
+                  player_money:
+                    rooms3[p].players[rooms3[p].places[a].ownership - 1].money,
+                });
+              if (rooms3[p].players[q].money < 0) {
+                rooms3[p].players[q].in_game == 0;
+                io.to(socket.id).emit("end_game");
+                console.log(rooms3[p].players[q].name + " is out");
+              }
+            }
+            if (choice == 0) {
+              //buy city case
+              io.sockets.in("room-"+socket.id).emit("player_decision", rooms3[p].players[q].name);
+              console.log("player decision event fired " + rooms3[p].players[q].name);
+            }
+            if(choice == 5){
+              rooms3[p].players[q].money+=100;
+              io.sockets
+              .in("room-" + socket.id)
+              .emit("update_money", {
+                player_name: rooms3[p].players[q].name,
+                player_money: rooms3[p].players[q].money,
+              });
+              let msg="YOU GET $100"
+              io.sockets.in("room-"+ socket.id).emit("display",msg);
+            }
+            if(choice == 6){
+              rooms3[p].players[q].money-=50;
+              io.sockets
+              .in("room-" + socket.id)
+              .emit("update_money", {
+                player_name: rooms3[p].players[q].name,
+                player_money: rooms3[p].players[q].money,
+              });
+              let msg="YOU LOSE $50"
+              io.sockets.in("room-"+ socket.id).emit("display",msg);
+            }
+            if(choice == 7){
+              for(let alpha=0;alpha<4;alpha++){
+  
+                  rooms3[p].players[alpha].money-=50;
+                  io.sockets
+                  .in("room-"+ socket.id)
+                  .emit("update_money", {
+                    player_name: rooms3[p].players[alpha].name,
+                    player_money: rooms3[p].players[alpha].money,
+                  });
+              }
+              let msg="EVERYONE LOSES $50"
+              io.sockets.in("room-"+ socket.id).emit("display",msg);
+            }
+  
+            if(choice == 8){
+              for(let alpha=0;alpha<rooms3[p].clients;alpha++){
+  
+                  rooms3[p].players[alpha].money+=100;
+                  io.sockets
+                  .in("room-" + socket.id)
+                  .emit("update_money", {
+                    player_name: rooms3[p].players[alpha].name,
+                    player_money: rooms3[p].players[alpha].money,
+                  });
+              }
+              let msg="EVERYONE GETS $100"
+              io.sockets.in("room-"+ socket.id).emit("display",msg);
+            }
+            if(choice == 9){
+              for(let alpha=0;alpha<rooms3[p].clients;alpha++){
+                  if(alpha!=q){
+  
+                      rooms3[p].players[alpha].money+=150;
+                      io.sockets
+                      .in("room-" + socket.id)
+                      .emit("update_money", {
+                        player_name: rooms3[p].players[alpha].name,
+                        player_money: rooms3[p].players[alpha].money,
+                      });
+                  }
+              }
+              let msg="EVERYONE EXCEPT YOU GETS $150"
+              io.sockets.in("room-"+ socket.id).emit("display",msg);
+            }
+  
+            if(choice==10){
+              io.sockets
+              .in("room-"+ socket.id)
+              .emit("update", {
+                name: rooms3[p].players[q].name,
+                curr_pos: rooms3[p].players[q].curr_pos,
+                new_pos: 0,
+              });
+              rooms3[p].players[q].curr_pos = 0;
+              rooms3[p].players[q].money += 100;
+              setTimeout(function(){
+                  io.sockets
+                  .in("room-" + socket.id)
+                  .emit("update_money", {
+                    player_name: rooms3[p].players[q].name,
+                    player_money: rooms3[p].players[q].money,
+                  });
+  
+              },2000)
+              let msg="GO TO START AND COLLECT $100"
+              io.sockets.in("room-"+ socket.id).emit("display",msg);
+            }
+            if(choice==11){
+              rooms3[p].players[q].money-=50;
+              io.sockets
+              .in("room-" + socket.id)
+              .emit("update_money", {
+                player_name: rooms3[p].players[q].name,
+                player_money: rooms3[p].players[q].money,
+              });
+              let msg="YOU LOSE $50"
+              io.sockets.in("room-"+ socket.id).emit("display",msg);
+            }
+            if(choice==12){
+              rooms3[p].players[q].money-=200;
+              io.sockets
+              .in("room-"+ socket.id)
+              .emit("update_money", {
+                player_name: rooms3[p].players[q].name,
+                player_money: rooms3[p].players[q].money,
+              });
+              let msg="YOUR BAIL COST YOU $200"
+              io.sockets.in("room-"+ socket.id).emit("display",msg);
+            }
+            if(choice==13){
+              io.sockets
+              .in("room-" + socket.id)
+              .emit("update", {
+                name: rooms3[p].players[q].name,
+                curr_pos: rooms3[p].players[q].curr_pos,
+                new_pos: 6,
+              });
+              rooms3[p].players[q].curr_pos = 6;
+              rooms3[p].players[q].money -= 200;
+              setTimeout(function(){
+                  io.sockets
+                  .in("room-" + socket.id)
+                  .emit("update_money", {
+                    player_name: rooms3[p].players[q].name,
+                    player_money: rooms3[p].players[q].money,
+                  });
+  
+              },4000)
+              let msg="GO TO JAIL"
+              io.sockets.in("room-"+ socket.id).emit("display",msg);
+            }
+  
+  
+            let count=0;
+            socket.on("buy", function (player_name) {
+               if(q==0){
+                gamma=3;
+               }
+               else{
+                gamma=q-1;
+               }
+                console.log("p is "+p+" and gamma is "+gamma +" count "+count+" a "+a);
+              if (count < 1 && rooms3[p].players[q].turn==1) {
+                rooms3[p].players[gamma].money =
+                  rooms3[p].players[gamma].money - rooms3[p].places[a].price;
+                rooms3[p].places[a].ownership = player_name;
+                io.sockets
+                  .in("room-" + socket.id)
+                  .emit("update_stats", {
+                    player_name: rooms3[p].players[gamma].name,
+                    place_name: rooms3[p].places[a].cell_name,
+                  });
+                io.sockets
+                  .in("room-" + socket.id)
+                  .emit("update_money", {
+                    player_name: rooms3[p].players[gamma].name,
+                    player_money: rooms3[p].players[gamma].money,
+                  });
+                console.log(rooms3[p].players);
+                count++;
+              }
+            });
+            rooms3[p].players[q].turn = 0;
+            rooms3[p].players[(q + 1) % 4].turn = 1;
+            q=(q+1)%4;
+          }
+        });
+}});
 http.listen(port, () => {
   console.log(`Socket.IO server running at http://localhost:${port}/`);
 });
