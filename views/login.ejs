@@ -30,11 +30,15 @@
 </head>
 
 <body>
-    <h1>SIGN IN</h1>
+
+    <img src="images/moguls.jpg" class="image"></img>
+
+    <div class="whole">
+    <form action="/login" method="post">
+        <h1>SIGN IN</h1>
     <div class="icon">
         <i class="fa-solid fa-circle-user"></i>
     </div>
-    <form action="/login" method="post">
         <div class="formcontainer">
         <div class="container">
           <label for="mail"><strong>E-mail</strong></label><br>
@@ -44,11 +48,11 @@
         </div>
         <button type="submit"><strong>SIGN IN</strong></button>
     </form>
-    <form action="/auth/google" method="get">
+    <form action="/auth/google" method="get" class="signin">
 
         <button type="submit" ><i class="fa-brands fa-google" id="google"></i><strong>SIGN IN</strong></button>
     </form>
-        
+</div>
 </body>
 
 </html>

@@ -30,6 +30,8 @@
 </head>
 
 <body>
+    <img src="images/moguls.jpg" class="image"></img>
+    <div class="whole">
     <form action="/register" method="post">
         <h1>SIGN UP</h1>
         <div class="icon">
@@ -44,14 +46,15 @@
           <label for="psw"><strong>Password</strong></label><br>
           <input type="password" placeholder="Enter Password" name="password" required><br>
         </div>
-        <div>
+        <div class="sign">
 
             <button type="submit"><strong>SIGN ME UP</strong></button>
           </form>
-          <form action="/auth/google" method="get">
+          <form action="/auth/google" method="get" class="signin">
               <button type="submit" ><i class="fa-brands fa-google" id="google"></i><strong>SIGN UP</strong></button>
           </form>
         </div>
+    </div>
 </body>
 
 </html>

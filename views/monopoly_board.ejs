@@ -1,286 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>site</title>
-    <link rel="stylesheet" href="style_board.css" />
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="index.js" charset="utf-8" defer></script>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moguls</title>
+  <link rel="stylesheet" href="style_board.css" />
 
-  <body>
-    <nav>
-      <div class="nav-content">
-        <div class="logo">
-          <a href="#"
-            ><img class="lo" src="image/moguls-modified.png" />
-            <h6>MOGULS</h6>
-          </a>
-        </div>
-        <ul class="nav-links">
-          <li>
-            <a href="#"
-              >PLAYER 1
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="index.js" charset="utf-8" defer></script>
 
-              <ul id="stats_p1">
-                <li id="player_money1">YASHASVI</li>
-              </ul>
-            </a>
-          </li>
-          <li>
-            <a href="#"
-              >PLAYER 2
-              <ul id="stats_p2">
-                <li id="player_money2">YASHASVI</li>
-              </ul>
-            </a>
-          </li>
-          <li>
-            <a href="#"
-              >PLAYER 3
-              <ul id="stats_p3">
-                <li id="player_money3">YASHASVI</li>
-              </ul>
-            </a>
-          </li>
-          <li>
-            <a href="#"
-              >PLAYER 4
-              <ul id="stats_p4">
-                <li id="player_money4">YASHASVI</li>
-              </ul>
-            </a>
-          </li>
-        </ul>
+  <!-- google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+  <!-- font awesome -->
+  <script src="https://kit.fontawesome.com/14ba3a16b4.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-content">
+      <div class="logo">
+        <a href="#"><img class="lo" src="images/moguls.jpg" />
+        </a>
       </div>
-    </nav>
-    <section class="home"></section>
+      <ul class="nav-links">
+        <li>
+          <a href="#"><p style="color:red "><strong>PLAYER 1</strong></p>
+
+            <ul id="stats_p1">
+              <li id="player_money1">YASHASVI</li>
+            </ul>
+          </a>
+        </li>
+        <li>
+          <a href="#"><p style="color:blue"><strong>PLAYER 2</strong></p>
+            <ul id="stats_p2">
+              <li id="player_money2">YASHASVI</li>
+            </ul>
+          </a>
+        </li>
+        <li>
+          <a href="#"><p style="color:rgb(7, 172, 7)"><strong>PLAYER 3</strong></p>
+            <ul id="stats_p3">
+              <li id="player_money3">YASHASVI</li>
+            </ul>
+          </a>
+        </li>
+        <li>
+          <a href="#"><p style="color:yellow"><strong>PLAYER 4</strong></p>
+            <ul id="stats_p4">
+              <li id="player_money4">YASHASVI</li>
+            </ul>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <section class="home"></section>
+
+  <script>
+    let nav = document.querySelector("nav");
+    window.onscroll = function () {
+      if (document.documentElement.scrollTop > 20) {
+        nav.classList.add("sticky");
+      } else {
+        nav.classList.remove("sticky");
+      }
+    };
+  </script>
+
+  <table id="board">
+    <tr>
+      <td class="cell board-corner" id="cell12">
+        FREE <br />PARKING
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+      <td class="cell board-top" id="cell13">
+        KENTUCY AVE<br /><br />
+        $220
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+      <td class="cell board-top" id="cell14">
+        CHANCE
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+      <td class="cell board-top" id="cell15">
+        ILLINOIS AVE<br /><br />
+        $240
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+      <td class="cell board-top" id="cell16">
+        WATER WORKS<br /><br />
+        $150
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+      <td class="cell board-top" id="cell17">
+        MARVIN GARDENS<br /><br />
+        $280
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+      <td class="cell board-corner" id="cell18">
+        GO TO JAIL
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+    </tr>
+    <tr>
+      <td class="cell board-left" id="cell11">
+        NY AVE<br /><br />
+        $200
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+      <td colspan="5" rowspan="5" class="board-center">
+
+
+        <label for="displayValue"></label>
+        <input type="textbox" name="display" size="50" readonly />
+        <p><label for="text"></label></p>
+        <br>
+        <textarea id="text" rows="4" cols="50" readonly></textarea>
+        <br><br>
+        <button class="roll_dice" id="roll"><i class="fa-solid fa-dice fa-lg"></i><strong>ROLL DICE</strong></button>
+        <button id="mortgage"><strong>MORTGAGE</strong></button>
+        <button id="button"><strong>BUY</strong></button>
+      </td>
+      <td class="cell board-right" id="cell19">
+        PACIFIC AVE<br /><br />
+        $300
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+    </tr>
+    <tr>
+      <td class="cell board-left" id="cell10">
+        COMMUNITY CHEST
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+      <td colspan="5" class="cell board-right" id="cell20">
+        COMMUNITY CHEST
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+    </tr>
+    <tr>
+      <td class="cell board-left" id="cell9">
+        VIRGINIA AVE<br /><br />
+        $160
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+      <td colspan="5" class="cell board-right" id="cell21">
+        PENNSYLVANIA AVE<br /><br />
+        $320
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+    </tr>
+    <tr>
+      <td class="cell board-left" id="cell8">
+        ELEC. COMP.<br /><br />
+        $150
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+      <td colspan="5" class="cell board-right" id="cell22">
+        CHANCE
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+    </tr>
+    <tr>
+      <td class="cell board-left" id="cell7">
+        ST. CHARLES PLACE<br /><br />
+        $140
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+      <td colspan="5" class="cell board-right" id="cell23">
+        BOARDWALK<br /><br />
+        $400
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+    </tr>
+    <tr>
+      <td class="cell board-corner" id="cell6">
+        JAIL
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+      <td class="cell board-bottom" id="cell5">
+        CONNECTICUT AVE<br /><br />
+        $120
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+      <td class="cell board-bottom" id="cell4">
+        CHANCE
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+      <td class="cell board-bottom" id="cell3">
+        ORIENTAL AVE<br /><br />
+        $100
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+      <td class="cell board-bottom" id="cell2">
+        COMMUNITY CHEST
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+
+      <td class="cell board-bottom" id="cell1">
+        MEDITERRANIAN AVE<br /><br />
+        $60
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+      <td class="cell board-corner" id="cell0">
+        START
+        <div class="player p1"></div>
+        <div class="player p2"></div>
+        <div class="player p3"></div>
+        <div class="player p4"></div>
+      </td>
+    </tr>
+  </table>
+  <!-- chatbox, livestream, gameplay-->
+  <div class="chatbox">
+    <ul id="messages">
+    </ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" ><button id="send"><strong>SEND</strong></button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
 
     <script>
-      let nav = document.querySelector("nav");
-      window.onscroll = function () {
-        if (document.documentElement.scrollTop > 20) {
-          nav.classList.add("sticky");
-        } else {
-          nav.classList.remove("sticky");
+      var socket = io();
+
+      var messages = document.getElementById('messages');
+      var form = document.getElementById('form');
+      var input = document.getElementById('input');
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (input.value) {
+          socket.emit('chat message', input.value);
+          input.value = '';
         }
-      };
+      });
+
+      socket.on('chat message', function(msg) {
+        var item = document.createElement('li');
+        item.textContent = msg;
+        messages.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      });
     </script>
+  </div>
+</body>
 
-    <table id="board">
-      <tr>
-        <td class="cell board-corner" id="cell12">
-          FREE <br />PARKING
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-        <td class="cell board-top" id="cell13">
-          KENTUCY AVE<br /><br />
-          $220
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-        <td class="cell board-top" id="cell14">
-          CHANCE
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-        <td class="cell board-top" id="cell15">
-          ILLINOIS AVE<br /><br />
-          $240
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-        <td class="cell board-top" id="cell16">
-          WATER WORKS<br /><br />
-          $150
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-        <td class="cell board-top" id="cell17">
-          MARVIN GARDENS<br /><br />
-          $280
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-        <td class="cell board-corner" id="cell18">
-          GO TO JAIL
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="cell board-left" id="cell11">
-          NY AVE<br /><br />
-          $200
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-        <td colspan="5" rowspan="5" class="board-center">
-          <button class="roll_dice">Roll dice</button>
-
-          <button id="mortgage">Mortgage</button>
-
-          <button id="button">BUY</button>
-          <br /><br />
-          <label for="displayValue">Move</label
-          ><input type="textbox" name="display" size="50" readonly />
-          <p><label for="text">DATA</label></p>
-          <textarea id="text" rows="4" cols="50"></textarea>
-        </td>
-        <td class="cell board-right" id="cell19">
-          PACIFIC AVE<br /><br />
-          $300
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="cell board-left" id="cell10">
-          COMMUNITY CHEST
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-        <td colspan="5" class="cell board-right" id="cell20">
-          COMMUNITY CHEST
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="cell board-left" id="cell9">
-          VIRGINIA AVE<br /><br />
-          $160
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-        <td colspan="5" class="cell board-right" id="cell21">
-          PENNSYLVANIA AVE<br /><br />
-          $320
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="cell board-left" id="cell8">
-          ELEC. COMP.<br /><br />
-          $150
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-        <td colspan="5" class="cell board-right" id="cell22">
-          CHANCE
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="cell board-left" id="cell7">
-          ST. CHARLES PLACE<br /><br />
-          $140
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-        <td colspan="5" class="cell board-right" id="cell23">
-          BOARDWALK<br /><br />
-          $400
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-      </tr>
-      <tr>
-        <td class="cell board-corner" id="cell6">
-          JAIL
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-        <td class="cell board-bottom" id="cell5">
-          CONNECTICUT AVE<br /><br />
-          $120
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-        <td class="cell board-bottom" id="cell4">
-          CHANCE
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-        <td class="cell board-bottom" id="cell3">
-          ORIENTAL AVE<br /><br />
-          $100
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-        <td class="cell board-bottom" id="cell2">
-          COMMUNITY CHEST
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-
-        <td class="cell board-bottom" id="cell1">
-          MEDITERRANIAN AVE<br /><br />
-          $60
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-        <td class="cell board-corner" id="cell0">
-          START
-          <div class="player p1"></div>
-          <div class="player p2"></div>
-          <div class="player p3"></div>
-          <div class="player p4"></div>
-        </td>
-      </tr>
-    </table>
-    <!-- chatbox, livestream, gameplay-->
-  </body>
 </html>

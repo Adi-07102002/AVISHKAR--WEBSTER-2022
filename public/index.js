@@ -29,14 +29,18 @@ socket.on("begin_game",function(){
     begin();
 });
 
-document.addEventListener("keydown",function (event){
-console.log(event.key)
-let a=event.key;
-if(a=="ArrowLeft"){
-    console.log("emit function triggerd");
+// document.addEventListener("keydown",function (event){
+// console.log(event.key)
+// let a=event.key;
+// if(a=="ArrowLeft"){
+//     console.log("emit function triggerd");
+//     socket.emit("move");
+// }
+// });
+document.getElementById('roll').onclick = function() {
+    console.log("roll was clicked");
     socket.emit("move");
 }
-});
 
 function update_position(player_name,curr_pos,new_pos){
     document.querySelector("#cell"+curr_pos+" .p"+player_name).classList.add("hidden");

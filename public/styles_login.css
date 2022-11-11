@@ -8,6 +8,17 @@ body {
     background-color: black;
 }
 
+.image{
+    height: 700px;
+    width:750px;
+    float:right;
+    position:absolute;
+    left: 80px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+}
+
 form {
     padding: 10px 0;
     border-radius: 30px;
@@ -43,7 +54,7 @@ button {
     margin-right: 20px;
     border: none;
     cursor: grab;
-    width: 30%;
+    width: 50%;
     border-radius: 20px;
 }
 
@@ -66,13 +77,24 @@ button:hover {
     text-align: left;
 }
 
-#google{
+#google {
     padding-right: 10px;
 }
-h1{
-   font-size: 40px; 
+
+h1 {
+    font-size: 40px;
 }
 
-label{
+label {
     padding-top: 5px;
+}
+
+
+.whole {
+    height:564px;
+    position: absolute;
+    right: 100px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
 }

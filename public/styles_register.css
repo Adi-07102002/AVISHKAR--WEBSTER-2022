@@ -7,9 +7,20 @@ body {
     font-size: 15px;
     background-color: black;
 }
+.image{
+    height: 700px;
+    width:750px;
+    float:right;
+    position:absolute;
+    left: 80px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+}
 
 form {
-    padding: 10px 0;
+    width: 500px;
+    padding: 30px 50px 0 50px;
     border-radius: 30px;
     border: none;
     background-color: #EEEEEE;
@@ -43,7 +54,7 @@ button {
     margin-right: 20px;
     border: none;
     cursor: grab;
-    width: 30%;
+    width: 50%;
     border-radius: 20px;
 }
 
@@ -76,3 +87,25 @@ h1{
 label{
     padding-top: 5px;
 }
+
+.whole {
+    height: 655px;
+    position: absolute;
+    right: 120px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+}
+
+.sign{
+    text-align: center;
+}
+.signin {
+    translate: transform(0px, 100px);
+    width:400px;
+    padding:0;
+    padding-bottom: 30px;
+    text-align: center;
+
+}
+
