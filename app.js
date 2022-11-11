@@ -1763,10 +1763,10 @@ io.on("connection", function (socket) {
               gamma=q;
             let choice = decision(
               rooms3[p].players[q].name,
-              rooms3[p].places[a].ownership,
+              rooms3[p].places[rooms3[p].players[gamma].curr_pos].ownership,
               rooms3[p].players[q].money,
-              rooms3[p].places[a].price,
-              rooms3[p].places[a].name
+              rooms3[p].places[rooms3[p].players[gamma].curr_pos].price,
+              rooms3[p].places[rooms3[p].players[gamma].curr_pos].name
             );
             console.log("CHOICE: " + choice+" q is "+q);
   
@@ -1949,15 +1949,16 @@ io.on("connection", function (socket) {
                 gamma=q-1;
                }
                 console.log("p is "+p+" and gamma is "+gamma +" count "+count+" a "+a);
-              if (count < 1 && rooms3[p].players[q].turn==1) {
+              if (count < 1 && rooms3[p].players[q].turn==1 && rooms3[p].places[rooms3[p].players[gamma].curr_pos].ownership!=player_name ) {
+                if(rooms3[p].places[rooms3[p].players[gamma].curr_pos].name=="city" || rooms3[p].places[rooms3[p].players[gamma].curr_pos].name=="company"  ){
                 rooms3[p].players[gamma].money =
-                  rooms3[p].players[gamma].money - rooms3[p].places[a].price;
-                rooms3[p].places[a].ownership = player_name;
+                  rooms3[p].players[gamma].money - rooms3[p].places[rooms3[p].players[gamma].curr_pos].price;
+                rooms3[p].places[rooms3[p].players[gamma].curr_pos].ownership = player_name;
                 io.sockets
                   .in("room-" + socket.id)
                   .emit("update_stats", {
                     player_name: rooms3[p].players[gamma].name,
-                    place_name: rooms3[p].places[a].cell_name,
+                    place_name: rooms3[p].places[rooms3[p].players[gamma].curr_pos].cell_name,
                   });
                 io.sockets
                   .in("room-" + socket.id)
@@ -1967,6 +1968,7 @@ io.on("connection", function (socket) {
                   });
                 console.log(rooms3[p].players);
                 count++;
+              }
               }
             });
             rooms3[p].players[q].turn = 0;
