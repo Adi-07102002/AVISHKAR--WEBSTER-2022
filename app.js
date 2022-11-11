@@ -646,6 +646,7 @@ io.on("connection", function (socket) {
       console.log(rooms[j].players);
       socket.emit("begin_game");
       socket.on("cell_clicked", function (k) {
+        console.log("got clicked");
         let p1 = 0;
         let q1 = 0;
         let pq1 = 0;
@@ -670,6 +671,35 @@ io.on("connection", function (socket) {
           price: rooms[p1].places[k].price,
           ownership: rooms[p1].places[k].ownership,
         });
+      });
+      socket.on('chat message', msg => {
+        console.log("listened the msg")
+      let p2 = 0;
+      let q2 = 0;
+      let pq2 = 0;
+      while (p2 < rooms.length && pq2 != 1) {
+        while (q2 < rooms[p2].clients) {
+          if (rooms[p2].players[q2].socket_id == socket.id) {
+            console.log("message" + rooms[p2].clients + " " + p2 + " " + q2);
+            pq2 = 1;
+            break;
+          }
+          q2++;
+        }
+        p2++;
+      }
+      p2 = p2 - 1;
+      q2 = q2 % 4;
+      if (p2 >= 1) {
+        q2 = q2 + p2;
+      }
+      console.log("room is "+rooms[p2].roomno + "" + rooms[p2].game_type)
+        let m="PLAYER "+rooms[p2].players[q2].name+" :  "+msg;
+        io.sockets
+        .in("room-" + rooms[p2].roomno + "" + rooms[p2].game_type)
+        .emit('chat message', m);
+        // msg="You:  "+msg;
+        // io.to(socket.id).emit('chat message', msg);
       });
       socket.on("move", function () {
         console.log("hi " + socket.id);
@@ -1191,6 +1221,32 @@ io.on("connection", function (socket) {
           price: rooms[j].places[k].price,
           ownership: rooms[j].places[k].ownership,
         });
+      });
+      socket.on('chat message', msg => {
+        console.log("listened the msg")
+      let p2 = 0;
+      let q2 = 0;
+      let pq2 = 0;
+      while (p2 < rooms.length && pq2 != 1) {
+        while (q2 < rooms[p2].clients) {
+          if (rooms[p2].players[q2].socket_id == socket.id) {
+            console.log("message" + rooms[p2].clients + " " + p2 + " " + q2);
+            pq2 = 1;
+            break;
+          }
+          q2++;
+        }
+        p2++;
+      }
+      p2 = p2 - 1;
+      q2 = q2 % 4;
+      console.log("room is "+rooms[p2].roomno + "" + rooms[p2].game_type)
+        let m="PLAYER "+rooms[p2].players[q2].name+" :  "+msg;
+        io.sockets
+        .in("room-" + rooms[p2].roomno + "" + rooms[p2].game_type)
+        .emit('chat message', m);
+        // msg="You:  "+msg;
+        // io.to(socket.id).emit('chat message', msg);
       });
       socket.on("move", function () {
         console.log("hi " + socket.id);
