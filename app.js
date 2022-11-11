@@ -794,6 +794,10 @@ io.on("connection", function (socket) {
                 player_money:
                   rooms[p].players[rooms[p].places[a].ownership - 1].money,
               });
+              let msg="PLAYER "+rooms[p].players[q].name+" paid $"+rooms[p].places[a].price * 0.1+" as rent to "+rooms[p].players[rooms[p].places[a].ownership - 1].name;
+              io.sockets
+            .in("room-" + rooms[p].roomno + "" + rooms[p].game_type)
+            .emit("display", msg);
             if (rooms[p].players[q].money < 0) {
               rooms[p].players[q].in_game == 0;
               io.to(socket.id).emit("end_game");
@@ -979,6 +983,10 @@ io.on("connection", function (socket) {
                   player_name: rooms[p].players[q].name,
                   player_money: rooms[p].players[q].money,
                 });
+                let msg="PLAYER "+rooms[p].players[q].name+" bought "+rooms[p].places[a].cell_name;
+                io.sockets
+                .in("room-" + rooms[p].roomno + "" + rooms[p].game_type)
+                .emit("display", msg);
               console.log(rooms[p].players);
               count++;
             }
@@ -1337,6 +1345,11 @@ io.on("connection", function (socket) {
                 player_money:
                   rooms[p].players[rooms[p].places[a].ownership - 1].money,
               });
+              let msg="PLAYER "+rooms[p].players[q].name+" paid $"+rooms[p].places[a].price * 0.1+" as rent to "+rooms[p].players[rooms[p].places[a].ownership - 1].name;
+              io.sockets
+            .in("room-" + rooms[p].roomno + "" + rooms[p].game_type)
+            .emit("display", msg);
+            
             if (rooms[p].players[q].money < 0) {
               rooms[p].players[q].in_game == 0;
               io.to(socket.id).emit("end_game");
@@ -1521,6 +1534,10 @@ io.on("connection", function (socket) {
                   player_name: rooms[p].players[q].name,
                   player_money: rooms[p].players[q].money,
                 });
+                let msg="PLAYER "+rooms[p].players[q].name+" bought "+rooms[p].places[a].cell_name;
+                io.sockets
+                .in("room-" + rooms[p].roomno + "" + rooms[p].game_type)
+                .emit("display", msg);
               console.log(rooms[p].players);
               count++;
             }
