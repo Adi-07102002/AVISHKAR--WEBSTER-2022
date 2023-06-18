@@ -1,0 +1,74 @@
+html {
+    font-size: 16px;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    line-height: 1.5;
+  }
+  
+  :root {
+    --primarycolor: hsl(179, 93%, 44%);
+    --blue: hsl(183, 100%, 35%);
+    --lightblue: hsl(183, 49%, 63%);
+    --secondarycolor: hsl(217, 10%, 25%);
+    --Backgroundcolor: hsl(216, 19%, 16%);
+    --white: hsl(0, 0%, 100%);
+    --darkishwhite: hsl(0, 0%, 78%);
+    --var-soft-blue: hsl(215, 51%, 70%);
+    --var-cyan: hsl(178, 100%, 50%);
+    --var-main-darkest: hsl(217, 54%, 11%);
+    --var-card-dark: hsl(216, 50%, 16%);
+    --var-line-dark: hsl(215, 32%, 27%);
+    --var-lightest: white;
+  }
+  
+  :root {
+    --outfit: "Outfit", sans-serif;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 0.625rem;
+    background-color: var(--lightblue);
+    outline: 1px solid slategrey;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: var(--lightblue);
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--blue);
+  }
+  
+  body {
+    font-family: var(--outfit);
+    background-color: var(--Backgroundcolor);
+    overflow-x: hidden;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 20px 0 20px;
+  }
+  
+  li {
+    list-style: none;
+  }
+  
+  section, footer {
+    width: 100%;
+    max-width: 93.75rem;
+    min-height: 100vh;
+    padding: 1rem 7.5rem;
+  }
+  
+  h1,h2,h3,h4{
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 2px;
+    color:white;
+  }
+  
+  p{
+    font-family: 'Montserrat';
+  }

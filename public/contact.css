@@ -1,0 +1,127 @@
+body {
+    font-family: montserrat;
+    background-color: black;
+}
+
+.top {
+    background-color: black;
+}
+
+
+.navbar-nav a {
+    color: #746a6a;
+    font-family: montserrat;
+    font-size: 15px;
+}
+
+.dropdown-menu a {
+    color: #746a6a;
+    font-family: montserrat;
+    font-size: 15px;
+}
+
+.nav-brand {
+    padding: 15px;
+
+}
+
+.nav-item {
+    padding: 15px 20px 15px 0;
+    
+}
+
+
+.contact_text{
+    color: #00dbc5;
+    font-family: montserrat;
+    text-align: center;
+    padding-bottom: 30px;
+}
+.parent {
+    position: relative;
+    height:72vh;
+    width:65vw;
+    border: 1px solid black;
+    margin: 0rem;
+    padding: 0rem;
+    background-color: #808080;
+}
+
+.child1{
+    position:absolute;
+    top:0;
+    left:0;
+    height:65vh;
+    width: 32.5vw;
+    text-align:left;
+    /* border: 1px solid red; */
+    padding: 1rem 1rem;
+    vertical-align: middle;
+    margin:0rem 1rem ; 
+    color:black;
+}
+.child2{
+    position:absolute;
+    top:0;
+    right:0;
+    height:65vh;
+    width: 32.5vw;
+    text-align:right; 
+    /* border: 1px solid red; */
+    padding: 1rem 1rem;
+    vertical-align: middle;
+    margin:0rem 1rem ; 
+    color:black;
+}
+
+#mytext{
+    resize:none;
+    width: 32.5vw;
+    border-radius: 10px;
+}
+
+h1,h6{
+    font-family: montserrat;
+    padding-top:20px;
+    /* padding-bottom:10px;  */
+}
+
+ul {  
+    list-style-type: none;  
+    
+}
+
+input{
+    width: 32.5vw;
+    border-radius: 10px;
+}
+
+.discuss_btn{
+    /* margin-bottom: 10px; */
+    width:150px;
+    height:40px;
+    background-color:black;
+    border:none;
+    border-radius: 50px;
+    color:white;
+    font-family: 'Montserrat';
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+i{
+    padding:10px;
+}
+
+.social{
+    padding-top:20px;
+}
+
+#contact{
+    margin: auto;
+  padding: 10px;;
+}
+
+  

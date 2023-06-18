@@ -1,0 +1,52 @@
+.main {
+    position: relative;
+    font-family: montserrat;
+    background-color: #ffffff;
+    height: fit-content;
+    padding: 20px;
+    width: 46vw;
+}
+
+.discuss_btn {
+    /* margin-bottom: 10px; */
+    width: 150px;
+    height: 40px;
+    background-color:  #ff6700;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-family: 'Montserrat';
+    margin-left: 20px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+input {
+    border-radius: 10px;
+    width:32vw;
+    /* height: 40px; */
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+}
+
+img {
+    width: 70%;
+    height: 70%;
+}
+
+h6 {
+    padding-top: 20px;
+    color: hsl(183, 100%, 35%);
+}
+
+.outer{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:  #ff9248;
+}

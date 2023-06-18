@@ -1,0 +1,117 @@
+body {
+    font-family: montserrat;
+}
+
+.top {
+    background-color: black;
+}
+
+
+.navbar-nav a {
+    color: #746a6a;
+    font-family: montserrat;
+    font-size: 15px;
+}
+
+.dropdown-menu a {
+    color: #746a6a;
+    font-family: montserrat;
+    font-size: 15px;
+}
+
+.nav-brand {
+    padding: 15px;
+
+}
+
+.nav-item {
+    padding: 15px 20px 15px 0;
+    
+}
+
+
+.name {
+    font-family: montserrat;
+    color: #00dbc5;
+}
+
+
+.intro {
+    padding-left: 40px;
+    padding-bottom: 5px;
+    padding-top: 30px;
+}
+
+.tagline {
+    padding-left: 40px;
+    color: #746a6a;
+}
+.parent {
+    /* border: 1px solid black; */
+    margin: 0rem;
+    padding: 0rem;
+    text-align: center;
+}
+
+.child {
+    display: inline-block;
+    /* border: 1px solid red; */
+    padding: 1rem 1rem;
+    vertical-align: middle;
+    margin:0rem 1rem ;
+    
+    
+}
+
+.session{
+    height: 100px;
+    width:30%;
+    border-radius: 25px;
+    background-color: #746a6a;
+    color:white;
+    text-align: center;
+
+}
+.head{
+    font-family: montserrat;
+    padding: 20px 0px;
+    text-align: center;
+}
+.box{
+    border: 1px solid black;
+    height:150px;
+    width:500px;
+    border-radius: 25px;
+    border-color:  #746a6a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.s1{
+    display: block;
+}
+
+.b1{
+    display: block;
+    padding-top:20px;
+}
+.button{
+    padding:20px;
+}
+
+.help{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.explore{
+    padding-top: 30px;
+    padding-bottom: 10px;
+}
+
+.b2{
+    margin:0px 15px;
+}

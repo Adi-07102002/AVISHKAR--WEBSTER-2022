@@ -1,170 +1,183 @@
 require("dotenv").config();
 const express = require("express");
-const bodyParser = require("body-parser");
-const ejs = require("ejs");
-const mongoose = require("mongoose");
-const session = require("express-session");
-const passport = require("passport");
-const passportLocalMongoose = require("passport-local-mongoose");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const findOrCreate = require("mongoose-findorcreate");
-
 const app = express();
-
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+var nodemailer = require("nodemailer");
+const cookieSession = require("cookie-session");
+const passport = require("passport");
+const bcrypt = require("bcryptjs");
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
+const mongoose = require("mongoose");
 const port = process.env.PORT || 3000;
 const { move_piece, decision } = require("./game");
-
 app.use(express.static("public"));
 app.set("view engine", "ejs");
+app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
     extended: true,
   })
 );
 
+app.use(cookieParser());
 app.use(
-  session({
-    secret: "Ourvvtybtguybyggygg.",
-    resave: false,
-    saveUninitialized: true,
-    //cookie: { secure: true }
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: ["codeforces_grandmasters_team"],
   })
 );
+console.log("hey");
 
-app.use(passport.initialize());
-app.use(passport.session());
+const User = require("./src/models/userauth");
+const isAuth = require("./routes/auth/isauth");
+const createToken = require("./routes/auth/createtoken");
+const OtpData = require("./src/models/otpData");
+const verify=require("./routes/auth/verify");
+const otp = require("./routes/auth/otp");
+app.use(otp);
+app.use(verify);
 
-mongoose.connect("mongodb://localhost:27017/userDB");
-
-const userSchema = new mongoose.Schema({
-  email: String,
-  password: String,
-  googleId: String,
-  game_choice: Number,
-});
-
-userSchema.plugin(passportLocalMongoose);
-userSchema.plugin(findOrCreate);
-
-const User = new mongoose.model("User", userSchema);
-
-// CHANGE: USE "createStrategy" INSTEAD OF "authenticate"
-passport.use(User.createStrategy());
-
-// used to serialize the user for the session
-passport.serializeUser(function (user, done) {
-  done(null, user.id);
-  // where is this user.id going? Are we supposed to access this anywhere?
-});
-
-// used to deserialize the user
-passport.deserializeUser(function (id, done) {
-  User.findById(id, function (err, user) {
-    done(err, user);
-  });
-});
-
-var user_id = 0;
-
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "http://localhost:3000/auth/google/monopoly",
-      userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
-    },
-    function (accessToken, refreshToken, profile, cb) {
-      user_id = profile.id;
-      User.findOrCreate({ googleId: profile.id }, function (err, user) {
-        return cb(err, user);
-      });
+app.get("/", async (req, res) => {
+  console.log("get");
+  try {
+    const user=await isAuth(req);
+    if(user){
+      res.redirect("/monopoly");
     }
-  )
-);
-
-app.get("/", function (req, res) {
-  res.render("home");
-});
-
-app.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile"] })
-);
-app.get(
-  "/auth/google/monopoly",
-  passport.authenticate("google", { failureRedirect: "/login" }),
-  function (req, res) {
-    res.redirect("/monopoly");
+    res.status(200).render("home");
+  } catch (err) {
+    res.status(401).send(err);
   }
-);
-
-app.get("/login", function (req, res) {
-  res.render("login");
 });
-
-app.get("/register", function (req, res) {
-  res.render("register");
+app.get("/login", async function (req, res) {
+  try {
+    res.status(200).render("login");
+  } catch (error) {
+    res.status(401).send(error);
+  }
 });
-
-app.get("/monopoly", function (req, res) {
-  console.log(user_id);
-  if (req.isAuthenticated()) {
+app.get("/register", async function (req, res) {
+  try {
+    res.status(200).render("register");
+  } catch (error) {
+    res.status(401).send(error);
+  }
+});
+app.get("/monopoly", async function (req, res) {
+  const user = await isAuth(req);
+  let verified=await User.findOne({email:user.email});
+  console.log(verified);
+  if (user && verified.isverified) {
     res.render("monopoly");
   } else {
     res.render("login");
   }
 });
+app.get("/contact",function(req,res){
+  res.render("contact");
+})
 
-app.get("/logout", function (req, res) {
-  req.logout(function () {});
-  res.redirect("/");
-});
-
-app.get("/monopoly_board", function (req, res) {
-  res.render("monopoly_board");
-});
-
-app.post("/register", function (req, res) {
-  User.register(
-    { username: req.body.username },
-    req.body.password,
-    function (err, user) {
-      if (err) {
-        console.log(err);
-        res.redirect("register");
-      } else {
-        user_id = req.body.username;
-        passport.authenticate("local")(req, res, function () {
-          res.redirect("monopoly");
-        });
-      }
-    }
-  );
-});
-
-app.post("/login", function (req, res) {
-  const user = new User({
-    username: req.body.username,
-    password: req.body.password,
-  });
-  req.login(user, function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      user_id = req.body.username;
-      passport.authenticate("local")(req, res, function () {
-        res.redirect("monopoly");
+app.post("/register", async function (req, res) {
+  let password = req.body.password;
+  let cpassword = req.body.confirmpassword;
+  const name = req.body.name;
+  const email = req.body.email;
+  if (password === cpassword) {
+    // let hashpassword;
+    const newpassword = async function (password) {
+      password = await bcrypt.hash(password, 10);
+      console.log(password);
+      return password;
+    };
+    password = await newpassword(password);
+    console.log(password);
+    let user = new User({
+      username: name,
+      email: email,
+      password: password,
+      isverified: false,
+    });
+    //user=isAuth(req);
+    await user.save();
+    let data = await User.findOne({ email: req.body.email });
+    await OtpData.findOneAndDelete({ email: req.body.email });
+    if (data) {
+      let otpCode = Math.floor(Math.random() * 1000000 + 1).toString();
+      let otpData = new OtpData({
+        email: req.body.email,
+        code: otpCode,
+        expireIn: new Date().getTime() + 300 * 1000,
       });
+      await otpData.save();
+      var transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "glee.official36@gmail.com",
+          pass: "uhpvjuhdajuqlviy",
+        },
+      });
+
+      var mailOptions = {
+        from: "glee.official36@gmail.com",
+        to: req.body.email,
+        subject: "Otp for changing password",
+        text: otpCode,
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
+      res.redirect("/verifyemail");
+    } else {
+      res.redirect("/register");
     }
-  });
+  } else {
+    console.log("error in register");
+    res.redirect("/register");
+  }
 });
+
+app.post("/login", async function (req, res) {
+  const email = req.body.email;
+  let password = req.body.password;
+
+  let user = await User.findOne({ email: email });
+  let flag=false;
+  if(user){    
+    flag = await bcrypt.compare(password, user.password);
+  }
+  //console.log("flag "+flag);
+  if(user&&user.isverified==false){
+    console.log(user.isverified);
+    res.redirect("/verifyemail");
+  }
+  if (user && flag) {
+    const token = await createToken(user._id);
+    res.cookie("jwt", token.toString(), {
+      expires: new Date(Date.now() + 6000000),
+      httpOnly: true,
+    });
+    const a = await req.cookies.jwt;
+    console.log(a);
+    res.redirect("/monopoly");
+  } else {
+    res.redirect("/login");
+    console.log("error");
+  }
+});
+
 //uptil this point is the website functioning and user authentication
 //below is the game logic
-app.get("/monopoly_board", function (req, res) {
-  if (req.isAuthenticated()) {
+app.get("/monopoly_board", async function (req, res) {
+  const user = await isAuth(req);
+  let verified=await User.findOne({email:user.email});
+  if (user&&verified.isverified) {
     res.render("monopoly_board");
   } else {
     res.render("login");
@@ -174,18 +187,18 @@ let game_type = 100;
 
 app.post("/online_multiplayer", function (req, res) {
   game_type = 0;
-  User.findOneAndUpdate(
-    { username: user_id },
-    { game_choice: 0 },
-    { new: true },
-    function (err, doc) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(doc);
-      }
-    }
-  );
+  // User.findOneAndUpdate(
+  //   { username: user_id },
+  //   { game_choice: 0 },
+  //   { new: true },
+  //   function (err, doc) {
+  //     if (err) {
+  //       console.log(err);
+  //     } else {
+  //       console.log(doc);
+  //     }
+  //   }
+  // );
   res.redirect("/monopoly_board");
 });
 app.post("/offline_mode", function (req, res) {
@@ -2050,6 +2063,6 @@ io.on("connection", function (socket) {
           }
         });
 }});
-http.listen(port, () => {
-  console.log(`Socket.IO server running at http://localhost:${port}/`);
+http.listen(3000, () => {
+  console.log(`Socket.IO server running at http://localhost:${3000}/`);
 });
