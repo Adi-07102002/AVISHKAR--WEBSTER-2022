@@ -34,6 +34,7 @@ const User = require("./src/models/userauth");
 const isAuth = require("./routes/auth/isauth");
 const createToken = require("./routes/auth/createtoken");
 const OtpData = require("./src/models/otpData");
+const RoomData = require("./src/models/rooms");
 const verify=require("./routes/auth/verify");
 const otp = require("./routes/auth/otp");
 app.use(otp);
@@ -174,6 +175,7 @@ app.post("/login", async function (req, res) {
 
 //uptil this point is the website functioning and user authentication
 //below is the game logic
+let code=0;
 app.get("/monopoly_board", async function (req, res) {
   const user = await isAuth(req);
   let verified=await User.findOne({email:user.email});
@@ -187,20 +189,47 @@ let game_type = 100;
 
 app.post("/online_multiplayer", function (req, res) {
   game_type = 0;
-  // User.findOneAndUpdate(
-  //   { username: user_id },
-  //   { game_choice: 0 },
-  //   { new: true },
-  //   function (err, doc) {
-  //     if (err) {
-  //       console.log(err);
-  //     } else {
-  //       console.log(doc);
-  //     }
-  //   }
-  // );
   res.redirect("/monopoly_board");
 });
+app.post("/with_friends", function (req, res) {
+  game_type = 2;
+  code=3333;
+  res.redirect("/create_room");
+});
+app.get("/create_room",async function(req,res){
+  res.render("create_room");
+})
+app.get("/room_code",async function(req,res){
+   code=Math.floor(Math.random() * 1000000 + 1);
+   let roomData = new RoomData({
+    code: code,
+    players:1,
+  });
+  await roomData.save();
+   res.render("room_code",{code:code});
+})
+app.post("/room_code",async function(req,res){
+  res.redirect("/monopoly_board");
+})
+app.get("/enter_code",async function(req,res){
+  res.render("enter_code");
+})
+app.post("/enter_code",async function(req,res){
+  let a=req.body.code_entered;
+  let b=await RoomData.findOne({code:a});
+  try{
+  if(b){
+    code=a;
+  }
+  else{
+    res.redirect("/enter_code");
+  }
+  }
+  catch(error){
+    console.log(error);
+  }
+  res.redirect("/monopoly_board");
+})
 app.post("/offline_mode", function (req, res) {
   game_type = 3;
   res.redirect("/monopoly_board");
@@ -642,10 +671,11 @@ let rooms = [
 ];
 let j = 0;
 io.on("connection", function (socket) {
-  if (game_type == 0) {
+  if (game_type == 0||game_type==2) {
     console.log("VALUE OF J IS: " + j);
     if (rooms[j].clients < 4) {
       rooms[j].game_type = 0;
+      if(game_type==2){rooms[j].game_type=2;rooms[j].roomno=code;}
       socket.join("room-" + rooms[j].roomno + "" + rooms[j].game_type);
       rooms[j].players[rooms[j].clients].socket_id = socket.id;
       rooms[j].players[rooms[j].clients].room =
@@ -1561,9 +1591,6 @@ io.on("connection", function (socket) {
       });
     }
   }
-
-
-
 
 
 
