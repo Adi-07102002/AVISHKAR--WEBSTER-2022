@@ -9,13 +9,17 @@ body {
 
 
 .navbar-nav a {
-    color: #746a6a;
+    color:white;
     font-family: montserrat;
     font-size: 15px;
 }
 
+.nav > li > a:hover{
+    background-color:grey;
+}
+
 .dropdown-menu a {
-    color: #746a6a;
+    color:white;
     font-family: montserrat;
     font-size: 15px;
 }
@@ -32,7 +36,7 @@ body {
 
 
 .contact_text{
-    color: #00dbc5;
+    color: orangered;
     font-family: montserrat;
     text-align: center;
     padding-bottom: 30px;
@@ -44,7 +48,7 @@ body {
     border: 1px solid black;
     margin: 0rem;
     padding: 0rem;
-    background-color: #808080;
+    background-color: #b0afaf;
 }
 
 .child1{
